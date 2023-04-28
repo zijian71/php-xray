@@ -77,6 +77,7 @@ class DaemonSegmentSubmitter implements SegmentSubmitter
      */
     private function sendPacket(string $packet): void
     {
+        socket_set_option($this->socket, SOL_SOCKET, SO_SNDBUF, self::MAX_SEGMENT_SIZE);
         socket_sendto($this->socket, $packet, strlen($packet), 0, $this->host, $this->port);
     }
 
